@@ -1,0 +1,19 @@
+<library path="src">
+  <class name="JointTrajectoryPlot" type="rqt_joint_trajectory_plot.plugin.JointTrajectoryPlot" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      A plugin visualizing the JointTrajectory message in 2D plot.
+    </description>
+    <qtgui>
+      <group>
+        <label>Visualization</label>
+        <icon type="theme">folder</icon>
+        <statustip>Plugins related to visualization.</statustip>
+      </group>
+      <label>JointTrajectoryPlot</label>
+      <icon type="theme">utilities-system-monitor</icon>
+      <statustip>
+      A plugin visualizing the JointTrajectory message in 2D plot.
+      </statustip>
+    </qtgui>
+  </class>
+</library>
