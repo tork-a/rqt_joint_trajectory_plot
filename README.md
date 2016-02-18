@@ -1,5 +1,7 @@
 ## rqt_joint_trajectory_plot
 
+![Screenshot](resource/screenshot.png)
+
 ### To start up
 
 Run rqt as:
