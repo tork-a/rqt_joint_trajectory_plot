@@ -2,7 +2,8 @@
 
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Qt, QTimer, qWarning, Signal, Slot
-from python_qt_binding.QtGui import QAction, QIcon, QMenu, QWidget, QTreeWidgetItem
+from python_qt_binding.QtGui import QIcon
+from python_qt_binding.QtWidgets import QAction, QMenu, QWidget, QTreeWidgetItem
 import rospy, rospkg, roslib
 from rqt_py_common import topic_helpers
 from trajectory_msgs.msg import JointTrajectory
@@ -19,7 +20,7 @@ class MainWidget(QWidget):
         ui_file = rospack.get_path('rqt_joint_trajectory_plot')+'/resource/JointTrajectoryPlot.ui'
         loadUi(ui_file, self)
 
-        self.refresh_button.setIcon(QIcon.fromTheme('reload'))
+        self.refresh_button.setIcon(QIcon.fromTheme('view-refresh'))
         self.pause_button.setIcon(QIcon.fromTheme('media-playback-pause'))
 
         self.handler = None
