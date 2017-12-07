@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 from python_qt_binding.QtCore import Slot, Qt, QTimer, qWarning, Signal
-from python_qt_binding.QtGui import QWidget, QVBoxLayout, QSizePolicy, QColor
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+from python_qt_binding.QtGui import QColor
+from python_qt_binding.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+#from matplotlib.backends.backend_qt5agg import NavigationToolbar2QTAgg as NavigationToolbar
 from matplotlib.figure import Figure
 import operator
 import numpy as np
@@ -24,10 +25,10 @@ class PlotWidget(QWidget):
         super(PlotWidget, self).__init__(parent)
         # create widgets
         self.canvas = PlotCanvas()
-        self.toolbar = NavigationToolbar(self.canvas, self.canvas)
-        self.toolbar.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        #self.toolbar = NavigationToolbar(self.canvas, self.canvas)
+        #self.toolbar.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         vbox = QVBoxLayout()
-        vbox.addWidget(self.toolbar)
+        #vbox.addWidget(self.toolbar)
         vbox.addWidget(self.canvas)
         self.setLayout(vbox)
 
