@@ -2,6 +2,7 @@
 from rqt_gui_py.plugin import Plugin
 from .main_widget import MainWidget
 
+
 class JointTrajectoryPlot(Plugin):
     def __init__(self, context):
         super(JointTrajectoryPlot, self).__init__(context)

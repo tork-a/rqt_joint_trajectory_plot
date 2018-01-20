@@ -3,13 +3,14 @@ from python_qt_binding.QtCore import Slot, Qt, QTimer, qWarning, Signal
 from python_qt_binding.QtGui import QColor
 from python_qt_binding.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-#from matplotlib.backends.backend_qt5agg import NavigationToolbar2QTAgg as NavigationToolbar
 from matplotlib.figure import Figure
 import operator
 import numpy as np
-import copy, threading
+import copy
+import threading
 import rospy
 from trajectory_msgs.msg import JointTrajectory
+
 
 class PlotCanvas(FigureCanvas):
     def __init__(self):
@@ -20,19 +21,17 @@ class PlotCanvas(FigureCanvas):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.updateGeometry()
 
+
 class PlotWidget(QWidget):
     def __init__(self, parent=None):
         super(PlotWidget, self).__init__(parent)
         # create widgets
         self.canvas = PlotCanvas()
-        #self.toolbar = NavigationToolbar(self.canvas, self.canvas)
-        #self.toolbar.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         vbox = QVBoxLayout()
-        #vbox.addWidget(self.toolbar)
         vbox.addWidget(self.canvas)
         self.setLayout(vbox)
 
-    def draw_curves (self, curve_names, data):
+    def draw_curves(self, curve_names, data):
         self.canvas.axes.clear()
         self.canvas.axes.grid(True, color='gray')
         for name in curve_names:

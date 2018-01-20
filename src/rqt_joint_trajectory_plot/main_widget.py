@@ -4,20 +4,25 @@ from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Qt, QTimer, qWarning, Signal, Slot
 from python_qt_binding.QtGui import QIcon
 from python_qt_binding.QtWidgets import QAction, QMenu, QWidget, QTreeWidgetItem
-import rospy, rospkg, roslib
+import rospy
+import rospkg
+import roslib
 from rqt_py_common import topic_helpers
 from trajectory_msgs.msg import JointTrajectory
 import numpy as np
 from .plot_widget import PlotWidget
 
+
 class MainWidget(QWidget):
     draw_curves = Signal(object, object)
+
     def __init__(self):
         super(MainWidget, self).__init__()
         self.setObjectName('MainWidget')
 
         rospack = rospkg.RosPack()
-        ui_file = rospack.get_path('rqt_joint_trajectory_plot')+'/resource/JointTrajectoryPlot.ui'
+        ui_file = rospack.get_path(
+            'rqt_joint_trajectory_plot') + '/resource/JointTrajectoryPlot.ui'
         loadUi(ui_file, self)
 
         self.refresh_button.setIcon(QIcon.fromTheme('view-refresh'))
@@ -61,7 +66,8 @@ class MainWidget(QWidget):
         if self.handler:
             self.handler.unregister()
         self.joint_names = []
-        self.handler = rospy.Subscriber(topic_name, JointTrajectory, self.callback)
+        self.handler = rospy.Subscriber(
+            topic_name, JointTrajectory, self.callback)
 
     def close(self):
         if self.handler:
@@ -86,13 +92,13 @@ class MainWidget(QWidget):
     def callback(self, msg):
         if self.pause_button.isChecked():
             return
-        self.time = np.array([0.0]*len(msg.points))
+        self.time = np.array([0.0] * len(msg.points))
         (self.dis, self.vel, self.acc, self.eff) = ({}, {}, {}, {})
         for joint_name in msg.joint_names:
-            self.dis[joint_name] = np.array([0.0]*len(msg.points))
-            self.vel[joint_name] = np.array([0.0]*len(msg.points))
-            self.acc[joint_name] = np.array([0.0]*len(msg.points))
-            self.eff[joint_name] = np.array([0.0]*len(msg.points))
+            self.dis[joint_name] = np.array([0.0] * len(msg.points))
+            self.vel[joint_name] = np.array([0.0] * len(msg.points))
+            self.acc[joint_name] = np.array([0.0] * len(msg.points))
+            self.eff[joint_name] = np.array([0.0] * len(msg.points))
         for i in range(len(msg.points)):
             point = msg.points[i]
             self.time[i] = point.time_from_start.to_sec()
