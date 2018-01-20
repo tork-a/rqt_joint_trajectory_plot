@@ -2,8 +2,8 @@
 Changelog for package rqt_joint_trajectory_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2018-01-20)
+------------------
 * Organize and format package files
   - roslint check
   - autopep8 for python scripts
