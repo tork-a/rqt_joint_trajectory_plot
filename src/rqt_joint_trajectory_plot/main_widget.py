@@ -134,7 +134,7 @@ class MainWidget(QWidget):
                 if item.checkState(0):
                     joint_name = joint_item.text(0)
                     curve_name = joint_name + ' ' + traj_names[n]
-                    curve_names.append(curve_name)
+                    curve_names.append(curve_name.replace('_', '\_'))  # avoid LaTeX error on underscores
                     data[curve_name] = (self.time, data_list[n][joint_name])
         self.draw_curves.emit(curve_names, data)
 
