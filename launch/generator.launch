@@ -1,6 +1,6 @@
 <launch>
-  <node name="trajectory_1" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_1 --joint-num 1"/>
-  <node name="trajectory_2" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_2 --joint-num 2"/>
-  <node name="trajectory_3" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_3 --joint-num 3"/>
-  <node name="trajectory_4" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_4 --joint-num 4"/>
+  <node name="trajectory_1" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_1 --action /joint_trajectory_action_1 --joint-num 1"/>
+  <node name="trajectory_2" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_2 --action /joint_trajectory_action_2 --joint-num 2"/>
+  <node name="trajectory_3" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_3 --action /joint_trajectory_action_3 --joint-num 3"/>
+  <node name="trajectory_4" pkg="rqt_joint_trajectory_plot" type="joint_trajectory_generator.py" args="--topic /joint_trajectory_4 --action /joint_trajectory_action_4 --joint-num 4"/>
 </launch>

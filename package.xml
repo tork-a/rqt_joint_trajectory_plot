@@ -22,9 +22,11 @@
   <build_depend>roslaunch</build_depend>
   <build_depend>rostest</build_depend>
 
+  <run_depend>control_msgs</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>rqt_gui</run_depend>
   <run_depend>rqt_gui_py</run_depend>
+  <run_depend>trajectory_msgs</run_depend>
 
   <export>
     <rqt_gui plugin="${prefix}/plugin.xml"/>
