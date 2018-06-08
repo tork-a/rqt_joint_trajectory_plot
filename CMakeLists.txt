@@ -17,7 +17,7 @@ install(
 )
 
 install(
-  PROGRAMS script/joint_trajectory_generator.py
+  PROGRAMS script/joint_trajectory_generator.py script/rqt_joint_trajectory_plot
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
