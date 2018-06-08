@@ -7,8 +7,10 @@ from python_qt_binding.QtWidgets import QAction, QMenu, QWidget, QTreeWidgetItem
 import rospy
 import rospkg
 import roslib
+from roslib.message import get_message_class
 from rqt_py_common import topic_helpers
 from trajectory_msgs.msg import JointTrajectory
+from control_msgs.msg import FollowJointTrajectoryActionGoal
 import numpy as np
 from .plot_widget import PlotWidget
 
@@ -30,6 +32,7 @@ class MainWidget(QWidget):
 
         self.handler = None
         self.joint_names = []
+        self.topic_name_class_map = {}
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update)
         self.plot_widget = PlotWidget(self)
@@ -55,8 +58,11 @@ class MainWidget(QWidget):
         if topic_list is None:
             return
         self.topic_combox.clear()
+        self.topic_name_class_map = {}
         for (name, type) in topic_list:
-            if type == 'trajectory_msgs/JointTrajectory':
+            if type in [ 'trajectory_msgs/JointTrajectory',
+                         'control_msgs/FollowJointTrajectoryActionGoal' ]:
+                self.topic_name_class_map[name] = get_message_class(type)
                 self.topic_combox.addItem(name)
 
     def change_topic(self):
@@ -67,7 +73,7 @@ class MainWidget(QWidget):
             self.handler.unregister()
         self.joint_names = []
         self.handler = rospy.Subscriber(
-            topic_name, JointTrajectory, self.callback)
+            topic_name, rospy.AnyMsg, self.callback, topic_name)
 
     def close(self):
         if self.handler:
@@ -89,9 +95,20 @@ class MainWidget(QWidget):
                 sub_item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
         self.select_tree.itemChanged.connect(self.update_checkbox)
 
-    def callback(self, msg):
+    def callback(self, anymsg, topic_name):
         if self.pause_button.isChecked():
             return
+        # In case of control_msgs/FollowJointTrajectoryActionGoal
+        # set trajectory_msgs/JointTrajectory to 'msg'
+        # Convert AnyMsg to trajectory_msgs/JointTrajectory
+        msg_class = self.topic_name_class_map[topic_name]
+        if msg_class == JointTrajectory:
+            msg = JointTrajectory().deserialize(anymsg._buff)
+        elif msg_class == FollowJointTrajectoryActionGoal:
+            msg = FollowJointTrajectoryActionGoal().deserialize(anymsg._buff).goal.trajectory
+        else:
+            rospy.logerr('Wrong message type %s'%msg_class)
+            return;
         self.time = np.array([0.0] * len(msg.points))
         (self.dis, self.vel, self.acc, self.eff) = ({}, {}, {}, {})
         for joint_name in msg.joint_names:
