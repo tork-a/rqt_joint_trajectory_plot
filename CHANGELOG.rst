@@ -2,6 +2,12 @@
 Changelog for package rqt_joint_trajectory_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add script/rqt_joint_trajectory_plot(`#7 <https://github.com/tork-a/rqt_joint_trajectory_plot/issues/7>`_)
+* Update to visualize FollowJointTrajectoryActionGoal(`#6 <https://github.com/tork-a/rqt_joint_trajectory_plot/issues/6>`_)
+* Contributors: Kei Okada, Ryosuke Tajima
+
 0.0.1 (2018-01-20)
 ------------------
 * Organize and format package files
