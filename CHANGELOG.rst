@@ -2,8 +2,8 @@
 Changelog for package rqt_joint_trajectory_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.3 (2018-06-14)
+------------------
 * Check the qt version in plot_widget.py for indigo release(`#9 <https://github.com/tork-a/rqt_joint_trajectory_plot/issues/9>`_)
 * Contributors: Ryosuke Tajima
 
