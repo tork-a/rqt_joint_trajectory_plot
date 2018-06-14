@@ -2,8 +2,8 @@
 Changelog for package rqt_joint_trajectory_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.4 (2018-06-14)
+------------------
 * Fix lint problem
 * Contributors: Ryosuke Tajima
 
