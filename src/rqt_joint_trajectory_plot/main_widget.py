@@ -109,7 +109,11 @@ class MainWidget(QWidget):
         elif msg_class == FollowJointTrajectoryActionGoal:
             msg = FollowJointTrajectoryActionGoal().deserialize(anymsg._buff).goal.trajectory
         elif msg_class == DisplayTrajectory:
-            msg = DisplayTrajectory().deserialize(anymsg._buff).trajectory.pop().joint_trajectory
+            if DisplayTrajectory().deserialize(anymsg._buff).trajectory.__len__() > 0:
+                msg = DisplayTrajectory().deserialize(anymsg._buff).trajectory.pop().joint_trajectory
+            else:
+                rospy.logwarn("Received planned trajectory has no waypoints in it. Nothing to plot!")
+                return
         else:
             rospy.logerr('Wrong message type %s'%msg_class)
             return
