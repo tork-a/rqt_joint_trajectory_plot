@@ -2,8 +2,8 @@
 Changelog for package rqt_joint_trajectory_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.5 (2020-03-07)
+------------------
 * Add melodic release(`#13 <https://github.com/tork-a/rqt_joint_trajectory_plot/issues/13>`_)
   - Set CI python version to 3.6
   - Merge pull request 
