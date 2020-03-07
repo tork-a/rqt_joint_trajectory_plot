@@ -2,6 +2,23 @@
 Changelog for package rqt_joint_trajectory_plot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add melodic release(`#13 <https://github.com/tork-a/rqt_joint_trajectory_plot/issues/13>`_)
+  - Set CI python version to 3.6
+  - Merge pull request 
+* added ability to plot planned_path from moveit and made rqt launch file(`#10 <https://github.com/tork-a/rqt_joint_trajectory_plot/issues/10>`_)
+  - updated package.xml to include moveit_msgs for plotting display_trajectory messages
+* fixed example PVA image size
+* added empty display trajectory check and updated readme with instrucitons to launch PVA perspective
+* added ability to plot planned_path from moveit and made rqt launch file with custom perspective
+* Fix workspace name for CI (`#11 <https://github.com/tork-a/rqt_joint_trajectory_plot/issues/11>`_)
+  - Fix workspace name as https://github.com/tork-a/jog_control/pull/37/files
+* added empty display trajectory check and updated readme with instrucitons to launch PVA perspective
+* added ability to plot planned_path from moveit and made rqt launch file with custom perspective
+* Add travis.yml
+* Contributors: Ryosuke Tajima, marqrazz
+
 0.0.4 (2018-06-14)
 ------------------
 * Fix lint problem
