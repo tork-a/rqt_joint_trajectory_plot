@@ -11,6 +11,7 @@ from roslib.message import get_message_class
 from rqt_py_common import topic_helpers
 from trajectory_msgs.msg import JointTrajectory
 from control_msgs.msg import FollowJointTrajectoryActionGoal
+from moveit_msgs.msg import DisplayTrajectory
 import numpy as np
 from .plot_widget import PlotWidget
 
@@ -61,7 +62,8 @@ class MainWidget(QWidget):
         self.topic_name_class_map = {}
         for (name, type) in topic_list:
             if type in [ 'trajectory_msgs/JointTrajectory',
-                         'control_msgs/FollowJointTrajectoryActionGoal' ]:
+                         'control_msgs/FollowJointTrajectoryActionGoal',
+                         'moveit_msgs/DisplayTrajectory']:
                 self.topic_name_class_map[name] = get_message_class(type)
                 self.topic_combox.addItem(name)
 
@@ -106,9 +108,15 @@ class MainWidget(QWidget):
             msg = JointTrajectory().deserialize(anymsg._buff)
         elif msg_class == FollowJointTrajectoryActionGoal:
             msg = FollowJointTrajectoryActionGoal().deserialize(anymsg._buff).goal.trajectory
+        elif msg_class == DisplayTrajectory:
+            if DisplayTrajectory().deserialize(anymsg._buff).trajectory.__len__() > 0:
+                msg = DisplayTrajectory().deserialize(anymsg._buff).trajectory.pop().joint_trajectory
+            else:
+                rospy.logwarn("Received planned trajectory has no waypoints in it. Nothing to plot!")
+                return
         else:
             rospy.logerr('Wrong message type %s'%msg_class)
-            return;
+            return
         self.time = np.array([0.0] * len(msg.points))
         (self.dis, self.vel, self.acc, self.eff) = ({}, {}, {}, {})
         for joint_name in msg.joint_names:

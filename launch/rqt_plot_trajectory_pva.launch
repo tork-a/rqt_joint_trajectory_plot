@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="rqt_gui" type="rqt_gui" respawn="false" name="$(anon rqt_plot_traj)" output="screen" args="--perspective-file $(find rqt_joint_trajectory_plot)/rqt_perspectives/3x_joint_trajectory_plot.perspective"/>
+</launch>

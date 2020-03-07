@@ -1,0 +1,106 @@
+{
+  "keys": {},
+  "groups": {
+    "pluginmanager": {
+      "keys": {
+        "running-plugins": {
+          "type": "repr",
+          "repr": "{u'rqt_joint_trajectory_plot/JointTrajectoryPlot': [3, 2, 1]}"
+        }
+      },
+      "groups": {
+        "plugin__rqt_joint_trajectory_plot__JointTrajectoryPlot__1": {
+          "keys": {},
+          "groups": {
+            "dock_widget__main_widget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'JointTrajectoryPlot'"
+                }
+              },
+              "groups": {}
+            }
+          }
+        },
+        "plugin__rqt_joint_trajectory_plot__JointTrajectoryPlot__2": {
+          "keys": {},
+          "groups": {
+            "dock_widget__main_widget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'JointTrajectoryPlot'"
+                }
+              },
+              "groups": {}
+            }
+          }
+        },
+        "plugin__rqt_joint_trajectory_plot__JointTrajectoryPlot__3": {
+          "keys": {},
+          "groups": {
+            "dock_widget__main_widget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'JointTrajectoryPlot'"
+                }
+              },
+              "groups": {}
+            }
+          }
+        }
+      }
+    },
+    "mainwindow": {
+      "keys": {
+        "geometry": {
+          "type": "repr(QByteArray.hex)",
+          "repr(QByteArray.hex)": "QtCore.QByteArray('01d9d0cb0002000000000064000000cb000006cf0000043700000064000000f0000006cf0000043700000002000000000a00')",
+          "pretty-print": "     d     7 d     7     "
+        },
+        "state": {
+          "type": "repr(QByteArray.hex)",
+          "repr(QByteArray.hex)": "QtCore.QByteArray('000000ff00000000fd00000001000000030000066c0000031cfc0100000001fc000000000000066c0000010c00fffffffc0200000003fb0000007c007200710074005f006a006f0069006e0074005f007400720061006a006500630074006f00720079005f0070006c006f0074005f005f004a006f0069006e0074005400720061006a006500630074006f007200790050006c006f0074005f005f0031005f005f006d00610069006e005f00770069006400670065007401000000160000010e0000008c00fffffffb0000007c007200710074005f006a006f0069006e0074005f007400720061006a006500630074006f00720079005f0070006c006f0074005f005f004a006f0069006e0074005400720061006a006500630074006f007200790050006c006f0074005f005f0032005f005f006d00610069006e005f007700690064006700650074010000012a0000014d0000008c00fffffffb0000007c007200710074005f006a006f0069006e0074005f007400720061006a006500630074006f00720079005f0070006c006f0074005f005f004a006f0069006e0074005400720061006a006500630074006f007200790050006c006f0074005f005f0033005f005f006d00610069006e005f007700690064006700650074010000027d000000b50000008c00ffffff0000066c0000000000000004000000040000000800000008fc00000001000000030000000100000036004d0069006e0069006d0069007a006500640044006f0063006b00570069006400670065007400730054006f006f006c0062006100720000000000ffffffff0000000000000000')",
+          "pretty-print": "                   l                                                                                                                                                  * M                                                                      }       l                                                      "
+        }
+      },
+      "groups": {
+        "toolbar_areas": {
+          "keys": {
+            "MinimizedDockWidgetsToolbar": {
+              "type": "repr",
+              "repr": "8"
+            }
+          },
+          "groups": {}
+        }
+      }
+    }
+  }
+}
