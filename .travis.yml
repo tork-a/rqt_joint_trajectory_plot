@@ -11,6 +11,7 @@ addons:
     packages:
     - python2.7
     - 2to3
+    - xvfb
 env:
   global:
     - JOB_PATH=/tmp/devel_job
@@ -22,6 +23,11 @@ env:
     - ROS_DISTRO_NAME=kinetic OS_NAME=ubuntu OS_CODE_NAME=xenial ARCH=amd64 INDEX_URL=https://raw.githubusercontent.com/ros-infrastructure/ros_buildfarm_config/6a93d17/index.yaml
     - ROS_DISTRO_NAME=melodic OS_NAME=ubuntu OS_CODE_NAME=bionic ARCH=amd64
     - ROS_DISTRO_NAME=noetic  OS_NAME=ubuntu OS_CODE_NAME=focal  ARCH=amd64
+# https://docs.travis-ci.com/user/gui-and-headless-browsers/
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 install:
   # check python2 compatibility
   - if [ "${CHECK_PYTHON2_COMPILE}" == "true" ]; then python2 -m compileall .; exit $?; fi
