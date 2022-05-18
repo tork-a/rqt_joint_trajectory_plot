@@ -1,0 +1,18 @@
+<launch>
+  <include file="$(find rqt_joint_trajectory_plot)/launch/generator.launch" />
+
+  <!-- rqt_plot_trajectory_pva.launch uses anon, so we want to use specific node name to check if the node exists -->
+  <!-- <include file="$(find rqt_joint_trajectory_plot)/launch/rqt_plot_trajectory_pva.launch" /> -->
+  <node pkg="rqt_gui" type="rqt_gui" respawn="false"
+        name="rqt_plot_traj" output="screen"
+        args="--perspective-file $(find rqt_joint_trajectory_plot)/rqt_perspectives/3x_joint_trajectory_plot.perspective"/>
+
+  <!-- check if rqt_plot_traje exists -->
+  <test test-name="advertisetest_test" pkg="rostest" type="advertisetest" time-limit="5.0" retry="2">
+    <rosparam>
+      services:
+      - name: /rqt_plot_traj/set_logger_level
+        timeout: 2.
+    </rosparam>
+  </test>
+</launch>

@@ -1,0 +1,69 @@
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - OS: ubuntu-18.04
+            ROS_DISTRO: melodic
+          - OS: ubuntu-20.04
+            ROS_DISTRO: noetic
+
+    runs-on: ${{ matrix.OS }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup ROS
+        run: |
+            sudo apt update -y
+            sudo apt install -y curl gnupg
+            sudo apt install -y xvfb
+            echo "deb http://packages.ros.org/ros/ubuntu  $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/ros-latest.list
+            curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+            #
+            sudo apt update -y
+            sudo apt install -y python-catkin-tools python-rosdep || sudo apt install -y python3-catkin-tools python3-rosdep
+            sudo apt install -y ros-${{ matrix.ROS_DISTRO }}-catkin
+            sudo  rosdep init
+            rosdep update
+            rosdep install --from-path . --ignore-src --rosdistro ${{ matrix.ROS_DISTRO }} -r -y
+      - name: Run catkin build
+        run: |
+            source /opt/ros/${{ matrix.ROS_DISTRO }}/setup.bash
+            mkdir -p ~/ws/src/
+            cp -r $GITHUB_WORKSPACE ~/ws/src/
+            cd ~/ws/; catkin build
+      - name: Run catkin run_test
+        run: |
+          source /opt/ros/${{ matrix.ROS_DISTRO }}/setup.bash
+          cd ~/ws/; xvfb-run --auto-servernum catkin run_tests
+      - name: Run catkin test results
+        run: |
+          source /opt/ros/${{ matrix.ROS_DISTRO }}/setup.bash
+          cd ~/ws/; catkin_test_results --all build
+
+  check_python2:
+    runs-on: ubuntu-latest
+    name: check_python2
+
+    steps:
+      - name: Chcekout
+        uses: actions/checkout@v2
+      - name: Check Python2
+        run: |
+          sudo apt update -q && sudo apt install -y -q python2
+          python2 -m compileall .
+
+  check_python3:
+    runs-on: ubuntu-latest
+    name: check_python3
+
+    steps:
+      - name: Chcekout
+        uses: actions/checkout@v2
+      - name: Check Python3
+        run: |
+          sudo apt update -q && sudo apt install -y -q python3 git 2to3
+          bash -c "ret=0; trap 'ret=1' ERR; python3 -m compileall .; 2to3 -w -f except -f execfile -f has_key -f import -f raw_input -f zip .; git diff --exit-code . > /dev/null; echo Exitting with \$ret; exit \$ret"
