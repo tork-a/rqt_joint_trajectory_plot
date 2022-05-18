@@ -41,4 +41,6 @@ if(CATKIN_ENABLE_TESTING)
     message(STATUS "Testing ${LAUNCH_FILE}")
     roslaunch_add_file_check(${LAUNCH_FILE})
   endforeach()
+
+  add_rostest(test/plot.test)
 endif()
