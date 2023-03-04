@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package>
+<package format="3">
   <name>rqt_joint_trajectory_plot</name>
 
   <version>0.0.5</version>
@@ -22,13 +22,13 @@
   <build_depend>roslaunch</build_depend>
   <build_depend>rostest</build_depend>
 
-  <run_depend>control_msgs</run_depend>
-  <run_depend>rospy</run_depend>
-  <run_depend>rqt_gui</run_depend>
-  <run_depend>rqt_gui_py</run_depend>
-  <run_depend>rqt_py_common</run_depend>
-  <run_depend>trajectory_msgs</run_depend>
-  <run_depend>moveit_msgs</run_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rqt_gui</exec_depend>
+  <exec_depend>rqt_gui_py</exec_depend>
+  <exec_depend>rqt_py_common</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+  <exec_depend>moveit_msgs</exec_depend>
 
   <export>
     <rqt_gui plugin="${prefix}/plugin.xml"/>
