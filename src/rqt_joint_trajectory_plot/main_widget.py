@@ -6,7 +6,6 @@ from python_qt_binding.QtGui import QIcon
 from python_qt_binding.QtWidgets import QAction, QMenu, QWidget, QTreeWidgetItem
 import rospy
 import rospkg
-import roslib
 from roslib.message import get_message_class
 from rqt_py_common import topic_helpers
 from trajectory_msgs.msg import JointTrajectory
@@ -145,7 +144,7 @@ class MainWidget(QWidget):
 
     def plot_graph(self):
         '''
-        Emit changed signal to call plot_widet.draw_curves()
+        Emit changed signal to call plot_widget.draw_curves()
         '''
         curve_names = []
         data = {}
