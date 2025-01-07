@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package>
+<package format="3">
   <name>rqt_joint_trajectory_plot</name>
 
   <version>0.0.5</version>
@@ -14,22 +14,25 @@
   <!-- <url type="website">http://wiki.ros.org/rqt_joint_trajectory_plot</url> -->
 
   <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>g++-static</buildtool_depend>
 
   <build_depend>rospy</build_depend>
   <build_depend>rqt_gui</build_depend>
   <build_depend>rqt_gui_py</build_depend>
-  <build_depend>roslint</build_depend>
   <build_depend>roslaunch</build_depend>
 
-  <run_depend>control_msgs</run_depend>
-  <run_depend>rospy</run_depend>
-  <run_depend>rqt_gui</run_depend>
-  <run_depend>rqt_gui_py</run_depend>
-  <run_depend>rqt_py_common</run_depend>
-  <run_depend>trajectory_msgs</run_depend>
-  <run_depend>moveit_msgs</run_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rqt_gui</exec_depend>
+  <exec_depend>rqt_gui_py</exec_depend>
+  <exec_depend>rqt_py_common</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+  <exec_depend>moveit_msgs</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-matplotlib</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-matplotlib</exec_depend>
 
   <test_depend>rostest</test_depend>
+  <test_depend>roslint</test_depend>
   <test_depend>rosservice</test_depend>
 
   <export>
