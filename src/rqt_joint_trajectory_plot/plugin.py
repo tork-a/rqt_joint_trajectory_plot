@@ -7,7 +7,7 @@ class JointTrajectoryPlot(Plugin):
     def __init__(self, context):
         super(JointTrajectoryPlot, self).__init__(context)
         self.context = context
-        self.setObjectName('JointTrajctoryPlot')
+        self.setObjectName('JointTrajectoryPlot')
         # Create a MainWidget
         self.main_widget = MainWidget()
         context.add_widget(self.main_widget)
