@@ -14,6 +14,7 @@
   <!-- <url type="website">http://wiki.ros.org/rqt_joint_trajectory_plot</url> -->
 
   <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>g++-static</buildtool_depend>
 
   <build_depend>rospy</build_depend>
   <build_depend>rqt_gui</build_depend>
