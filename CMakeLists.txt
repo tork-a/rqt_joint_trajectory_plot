@@ -10,7 +10,7 @@ install(
 )
 
 install(
-  DIRECTORY resource
+  DIRECTORY resource rqt_perspectives
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   FILES_MATCHING
   PATTERN "*.ui"
