@@ -6,64 +6,114 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - OS: ubuntu-18.04
+          - OS: ubuntu:18.04
             ROS_DISTRO: melodic
-          - OS: ubuntu-20.04
+          - OS: ubuntu:20.04
             ROS_DISTRO: noetic
 
-    runs-on: ${{ matrix.OS }}
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.OS }}
+      volumes:
+        - /tmp/node20:/__e/node20
     steps:
+      - name: Try to replace `node` with an glibc 2.17
+        shell: bash
+        run: |
+          ls -lar /__e/node20 &&
+          apt update -y && apt install -y curl &&
+          curl -Lo /tmp/node.tar.gz https://unofficial-builds.nodejs.org/download/release/v20.17.0/node-v20.17.0-linux-x64-glibc-217.tar.gz &&
+          cd /__e/node20 &&
+          tar -x --strip-components=1 -f /tmp/node.tar.gz &&
+          ls -lar /__e/node20/bin/
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup ROS
         run: |
-            sudo apt update -y
-            sudo apt install -y curl gnupg
-            sudo apt install -y xvfb
-            echo "deb http://packages.ros.org/ros/ubuntu  $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/ros-latest.list
-            curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+            apt update -y
+            apt install -y curl gnupg lsb-release
+            apt install -y xvfb
+            echo "deb http://packages.ros.org/ros/ubuntu  $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/ros-latest.list
+            curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
             #
-            sudo apt update -y
-            sudo apt install -y python-catkin-tools python-rosdep || sudo apt install -y python3-catkin-tools python3-rosdep
-            sudo apt install -y ros-${{ matrix.ROS_DISTRO }}-catkin
-            sudo  rosdep init
-            rosdep update
-            rosdep install --from-path . --ignore-src --rosdistro ${{ matrix.ROS_DISTRO }} -r -y
+            apt update -y
+            apt install -y python-catkin-tools python-rosdep || apt install -y python3-catkin-tools python3-rosdep
+            apt install -y ros-${{ matrix.ROS_DISTRO }}-catkin
+            rosdep init
+            rosdep update --include-eol-distros
+            rosdep install --from-path $GITHUB_WORKSPACE --ignore-src --rosdistro ${{ matrix.ROS_DISTRO }} -r -y
       - name: Run catkin build
+        shell: bash
         run: |
             source /opt/ros/${{ matrix.ROS_DISTRO }}/setup.bash
             mkdir -p ~/ws/src/
             cp -r $GITHUB_WORKSPACE ~/ws/src/
-            cd ~/ws/; catkin build
+            cd ~/ws/; catkin build -vis --no-status
       - name: Run catkin run_test
+        shell: bash
         run: |
           source /opt/ros/${{ matrix.ROS_DISTRO }}/setup.bash
           cd ~/ws/; xvfb-run --auto-servernum catkin run_tests
       - name: Run catkin test results
+        shell: bash
         run: |
           source /opt/ros/${{ matrix.ROS_DISTRO }}/setup.bash
           cd ~/ws/; catkin_test_results --all build
 
   check_python2:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
+      volumes:
+        - /tmp/node20:/__e/node20
     name: check_python2
 
     steps:
+      - name: Try to replace `node` with an glibc 2.17
+        shell: bash
+        run: |
+          ls -lar /__e/node20 &&
+          apt update -y && apt install -y curl &&
+          curl -Lo /tmp/node.tar.gz https://unofficial-builds.nodejs.org/download/release/v20.17.0/node-v20.17.0-linux-x64-glibc-217.tar.gz &&
+          cd /__e/node20 &&
+          tar -x --strip-components=1 -f /tmp/node.tar.gz &&
+          ls -lar /__e/node20/bin/
+      - name: Set up a Git safe directory
+        run: |
+          apt update -q && apt install -y -q git
+          git config --global --add safe.directory "${GITHUB_WORKSPACE}"
       - name: Chcekout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Check Python2
         run: |
-          sudo apt update -q && sudo apt install -y -q python2
+          apt update -q && apt install -y -q python2
           python2 -m compileall .
 
   check_python3:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
+      volumes:
+        - /tmp/node20:/__e/node20
     name: check_python3
 
     steps:
+      - name: Try to replace `node` with an glibc 2.17
+        shell: bash
+        run: |
+          ls -lar /__e/node20 &&
+          apt update -y && apt install -y curl &&
+          curl -Lo /tmp/node.tar.gz https://unofficial-builds.nodejs.org/download/release/v20.17.0/node-v20.17.0-linux-x64-glibc-217.tar.gz &&
+          cd /__e/node20 &&
+          tar -x --strip-components=1 -f /tmp/node.tar.gz &&
+          ls -lar /__e/node20/bin/
+      - name: Set up a Git safe directory
+        run: |
+          apt update -q && apt install -y -q git
+          git config --global --add safe.directory "${GITHUB_WORKSPACE}"
       - name: Chcekout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Check Python3
         run: |
-          sudo apt update -q && sudo apt install -y -q python3 git 2to3
+          apt update -q && apt install -y -q python3 git 2to3
           bash -c "ret=0; trap 'ret=1' ERR; python3 -m compileall .; 2to3 -w -f except -f execfile -f has_key -f import -f raw_input -f zip .; git diff --exit-code . > /dev/null; echo Exitting with \$ret; exit \$ret"
