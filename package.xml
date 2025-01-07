@@ -22,7 +22,6 @@
   <build_depend>rqt_gui_py</build_depend>
   <build_depend>roslint</build_depend>
   <build_depend>roslaunch</build_depend>
-  <build_depend>rostest</build_depend>
 
   <exec_depend>control_msgs</exec_depend>
   <exec_depend>rospy</exec_depend>
@@ -31,6 +30,9 @@
   <exec_depend>rqt_py_common</exec_depend>
   <exec_depend>trajectory_msgs</exec_depend>
   <exec_depend>moveit_msgs</exec_depend>
+
+  <test_depend>rostest</test_depend>
+  <test_depend>rosservice</test_depend>
 
   <export>
     <rqt_gui plugin="${prefix}/plugin.xml"/>

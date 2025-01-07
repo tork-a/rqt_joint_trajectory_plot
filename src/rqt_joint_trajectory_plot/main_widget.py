@@ -6,7 +6,6 @@ from python_qt_binding.QtGui import QIcon
 from python_qt_binding.QtWidgets import QAction, QMenu, QWidget, QTreeWidgetItem
 import rospy
 import rospkg
-import roslib
 from roslib.message import get_message_class
 from rqt_py_common import topic_helpers
 from trajectory_msgs.msg import JointTrajectory
@@ -85,14 +84,14 @@ class MainWidget(QWidget):
     def refresh_tree(self):
         self.select_tree.itemChanged.disconnect()
         self.select_tree.clear()
-        for joint_name in self.joint_names:
+        for traj_name in ['position', 'velocity', 'acceleration', 'effort']:
             item = QTreeWidgetItem(self.select_tree)
-            item.setText(0, joint_name)
+            item.setText(0, traj_name)
             item.setCheckState(0, Qt.Unchecked)
             item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
-            for traj_name in ['position', 'velocity', 'acceleration', 'effort']:
+            for joint_name in self.joint_names:
                 sub_item = QTreeWidgetItem(item)
-                sub_item.setText(0, traj_name)
+                sub_item.setText(0, joint_name)
                 sub_item.setCheckState(0, Qt.Unchecked)
                 sub_item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
         self.select_tree.itemChanged.connect(self.update_checkbox)
@@ -145,7 +144,7 @@ class MainWidget(QWidget):
 
     def plot_graph(self):
         '''
-        Emit changed signal to call plot_widet.draw_curves()
+        Emit changed signal to call plot_widget.draw_curves()
         '''
         curve_names = []
         data = {}
@@ -153,14 +152,14 @@ class MainWidget(QWidget):
         traj_names = ['position', 'velocity', 'acceleration', 'effort']
         # Create curve name and data from checked items
         for i in range(self.select_tree.topLevelItemCount()):
-            joint_item = self.select_tree.topLevelItem(i)
-            for n in range(len(traj_names)):
-                item = joint_item.child(n)
+            traj_item = self.select_tree.topLevelItem(i)
+            for n in range(traj_item.childCount()):
+                item = traj_item.child(n)
                 if item.checkState(0):
-                    joint_name = joint_item.text(0)
-                    curve_name = joint_name + ' ' + traj_names[n]
+                    joint_name = item.text(0)
+                    curve_name = joint_name + ' ' + traj_item.text(0)
                     curve_names.append(curve_name)
-                    data[curve_name] = (self.time, data_list[n][joint_name])
+                    data[curve_name] = (self.time, data_list[i][joint_name])
         self.draw_curves.emit(curve_names, data)
 
     def update_checkbox(self, item, column):
