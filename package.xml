@@ -28,6 +28,8 @@
   <exec_depend>rqt_py_common</exec_depend>
   <exec_depend>trajectory_msgs</exec_depend>
   <exec_depend>moveit_msgs</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-matplotlib</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-matplotlib</exec_depend>
 
   <test_depend>rostest</test_depend>
   <test_depend>roslint</test_depend>
