@@ -14,6 +14,8 @@
   <!-- <url type="website">http://wiki.ros.org/rqt_joint_trajectory_plot</url> -->
 
   <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_PYTHON_VERSION == 2">python-setuptools</buildtool_depend>
+  <buildtool_depend condition="$ROS_PYTHON_VERSION == 3">python3-setuptools</buildtool_depend>
   <buildtool_depend>g++-static</buildtool_depend>
 
   <build_depend>rospy</build_depend>
