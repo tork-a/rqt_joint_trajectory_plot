@@ -16,7 +16,7 @@ install(
   PATTERN "*.ui"
 )
 
-install(
+catkin_install_python(
   PROGRAMS script/joint_trajectory_generator.py script/rqt_joint_trajectory_plot
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
