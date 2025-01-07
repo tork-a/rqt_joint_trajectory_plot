@@ -14,6 +14,7 @@ install(
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   FILES_MATCHING
   PATTERN "*.ui"
+  PATTERN "*.perspective"
 )
 
 catkin_install_python(
